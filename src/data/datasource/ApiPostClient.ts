@@ -1,3 +1,9 @@
+import { AuthenticationParams } from '@usecases/Authentication';
+
+export type ApiPostClientParams = {
+  url: string,
+  body: AuthenticationParams
+}
 export interface ApiPostClient {
-  post(url: string):Promise<void>
+  post(params: ApiPostClientParams):Promise<void>
 }

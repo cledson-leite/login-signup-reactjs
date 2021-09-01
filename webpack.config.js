@@ -11,7 +11,6 @@ module.exports = {
   resolve: {
   extensions: ['.ts', '.tsx', '.js', 'scss'],
     alias: {
-    '@': path.join(__dirname, 'src'),
     '@entities': path.join(__dirname, 'src/domain/entities'),
     '@usecases': path.join(__dirname, 'src/domain/usecases'),
     '@repositories': path.join(__dirname, 'src/data/repositories'),
