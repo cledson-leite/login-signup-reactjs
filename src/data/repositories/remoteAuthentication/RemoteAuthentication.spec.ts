@@ -12,8 +12,8 @@ type TypeSut = {
 const makeSut = (url: string = faker.internet.url()): TypeSut => {
   const apiPostClient = new ApiPostClientSpy()
   const sut = new RemoteAuthentication(url, apiPostClient)
-
-  return { sut, api: apiPostClient }
+  
+  return {sut, api:apiPostClient}
 }
 
 describe('Remote Authentication', () => {
