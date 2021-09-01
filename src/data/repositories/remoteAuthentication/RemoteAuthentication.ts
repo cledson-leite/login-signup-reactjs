@@ -1,3 +1,4 @@
+import { AuthenticationParams } from '@usecases/Authentication';
 import { ApiPostClient } from '@datasource/ApiPostClient';
 
 export class RemoteAuthentication {
@@ -5,7 +6,10 @@ export class RemoteAuthentication {
     private readonly url: string,
     private readonly api: ApiPostClient
   ) { };
-  async auth(): Promise<void>{
-    await this.api.post(this.url)
+  async auth(params: AuthenticationParams): Promise<void>{
+    await this.api.post({
+      url: this.url,
+      body: params
+    })
   }
 }
