@@ -1,10 +1,9 @@
-import { AuthenticationParams } from '@usecases/Authentication';
-import { ApiResponse } from './api/ApiResopnse';
+import { ApiResponse } from './api/ApiResponse';
 
-export type ApiPostClientParams = {
+export type ApiPostClientParams<BodyType> = {
   url: string,
-  body: AuthenticationParams
+  body: BodyType
 }
-export interface ApiPostClient {
-  post(params: ApiPostClientParams):Promise<ApiResponse>
+export interface ApiPostClient<BodyType, ResponseType> {
+  post(params: ApiPostClientParams<BodyType>): Promise<ApiResponse<ResponseType>>
 }

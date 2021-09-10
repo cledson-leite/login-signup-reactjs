@@ -1,15 +1,15 @@
-import { ApiResponse, ApiStatusCode } from '@datasource/api/ApiResopnse';
+import { ApiResponse, ApiStatusCode } from '@datasource/api/ApiResponse';
 import { ApiPostClient, ApiPostClientParams } from '@datasource/ApiPostClient';
 import { AuthenticationParams } from '@usecases/Authentication';
 
-export class ApiPostClientSpy implements ApiPostClient {
+export class ApiPostClientSpy<BodyType, ResponseType> implements ApiPostClient<BodyType, ResponseType>{
   public url?: string
-  public body?: AuthenticationParams
-  public response: ApiResponse = {
+  public body?: BodyType
+  public response: ApiResponse<ResponseType> = {
     statusCode: ApiStatusCode.ok
   }
 
-  async post(params: ApiPostClientParams): Promise<ApiResponse> {
+  async post(params: ApiPostClientParams<BodyType>): Promise<ApiResponse<ResponseType>> {
     this.url = params.url
     this.body = params.body
     return Promise.resolve(this.response);
