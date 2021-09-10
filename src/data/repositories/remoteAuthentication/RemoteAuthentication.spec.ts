@@ -8,6 +8,7 @@ import faker from 'faker'
 import { UnexpectedError } from '@repositories/errors/UnexpectedError'
 import { AuthenticationParams } from '@usecases/Authentication'
 import { Account } from '@entities/Account'
+import { fakeAccount } from '@repositories/mocks/fakeAccount'
 
 type TypeSut = {
   sut: RemoteAuthentication,
@@ -92,15 +93,17 @@ describe('Remote Authentication', () => {
     await expect(promise).rejects.toThrow(new UnexpectedError())
   })
 
-  it('Should throw UnexpectedError if ApiPostClient returns 500', async () => {
+  it('Should return an Account if ApiPostClient returns 200', async () => {
     //produz os dados do teste
+    const apiResult = fakeAccount()
     const { sut, api } = makeSut()
     api.response = {
-      statusCode: ApiStatusCode.serverError
+      statusCode: ApiStatusCode.ok,
+      body: apiResult
     }
     //operacionar esses dados
-    const promise = sut.auth(fakerParams())
+    const account = await sut.auth(fakerParams())
     //verificar resultado esperado
-    await expect(promise).rejects.toThrow(new UnexpectedError())
+    expect(account).toEqual(apiResult)
   })
 })
