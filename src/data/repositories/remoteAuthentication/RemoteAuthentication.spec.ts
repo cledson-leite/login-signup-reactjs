@@ -1,8 +1,11 @@
+import { ApiStatusCode } from '@datasource/api/ApiResopnse'
 import { RemoteAuthentication } from '@repositories/remoteAuthentication/RemoteAuthentication'
 import { ApiPostClientSpy } from '@repositories/mocks/ApiPostClientSpy'
 import { fakerParams } from '@repositories/mocks/fakeParams'
+import { InvalidCredencialsError } from '@repositories/errors/InvalidCredencialsError'
 
 import faker from 'faker'
+import { UnexpectedError } from '@repositories/errors/UnexpectedError'
 
 type TypeSut = {
   sut: RemoteAuthentication,
@@ -37,5 +40,53 @@ describe('Remote Authentication', () => {
     sut.auth(params)
     //verificar resultado esperado
     expect(api.body).toEqual(params)
+  })
+
+  it('Should throw InvalidCredentialError if ApiPostClient returns 401', async () => {
+    //produz os dados do teste
+    const { sut, api } = makeSut()
+    api.response = {
+      statusCode: ApiStatusCode.unauthorized
+    }
+    //operacionar esses dados
+    const promise = sut.auth(fakerParams())
+    //verificar resultado esperado
+    await expect(promise).rejects.toThrow(new InvalidCredencialsError())
+  })
+
+  it('Should throw UnexpectedError if ApiPostClient returns 400', async () => {
+    //produz os dados do teste
+    const { sut, api } = makeSut()
+    api.response = {
+      statusCode: ApiStatusCode.BadRequest
+    }
+    //operacionar esses dados
+    const promise = sut.auth(fakerParams())
+    //verificar resultado esperado
+    await expect(promise).rejects.toThrow(new UnexpectedError())
+  })
+
+  it('Should throw UnexpectedError if ApiPostClient returns 404', async () => {
+    //produz os dados do teste
+    const { sut, api } = makeSut()
+    api.response = {
+      statusCode: ApiStatusCode.notFound
+    }
+    //operacionar esses dados
+    const promise = sut.auth(fakerParams())
+    //verificar resultado esperado
+    await expect(promise).rejects.toThrow(new UnexpectedError())
+  })
+
+  it('Should throw UnexpectedError if ApiPostClient returns 500', async () => {
+    //produz os dados do teste
+    const { sut, api } = makeSut()
+    api.response = {
+      statusCode: ApiStatusCode.serverError
+    }
+    //operacionar esses dados
+    const promise = sut.auth(fakerParams())
+    //verificar resultado esperado
+    await expect(promise).rejects.toThrow(new UnexpectedError())
   })
 })
