@@ -1,22 +1,24 @@
-import { ApiStatusCode } from '@datasource/api/ApiResopnse'
+import { ApiStatusCode } from '@datasource/api/ApiResponse'
 import { RemoteAuthentication } from '@repositories/remoteAuthentication/RemoteAuthentication'
 import { ApiPostClientSpy } from '@repositories/mocks/ApiPostClientSpy'
 import { fakerParams } from '@repositories/mocks/fakeParams'
-import { InvalidCredencialsError } from '@repositories/errors/InvalidCredencialsError'
+import { InvalidCredentialsError } from '@repositories/errors/InvalidCredentialsError'
 
 import faker from 'faker'
 import { UnexpectedError } from '@repositories/errors/UnexpectedError'
+import { AuthenticationParams } from '@usecases/Authentication'
+import { Account } from '@entities/Account'
 
 type TypeSut = {
   sut: RemoteAuthentication,
-  api: ApiPostClientSpy
+  api: ApiPostClientSpy<AuthenticationParams, Account>
 }
 
 const makeSut = (url: string = faker.internet.url()): TypeSut => {
-  const apiPostClient = new ApiPostClientSpy()
+  const apiPostClient = new ApiPostClientSpy<AuthenticationParams, Account>()
   const sut = new RemoteAuthentication(url, apiPostClient)
-  
-  return {sut, api:apiPostClient}
+
+  return { sut, api: apiPostClient }
 }
 
 describe('Remote Authentication', () => {
@@ -51,7 +53,7 @@ describe('Remote Authentication', () => {
     //operacionar esses dados
     const promise = sut.auth(fakerParams())
     //verificar resultado esperado
-    await expect(promise).rejects.toThrow(new InvalidCredencialsError())
+    await expect(promise).rejects.toThrow(new InvalidCredentialsError())
   })
 
   it('Should throw UnexpectedError if ApiPostClient returns 400', async () => {
@@ -71,6 +73,18 @@ describe('Remote Authentication', () => {
     const { sut, api } = makeSut()
     api.response = {
       statusCode: ApiStatusCode.notFound
+    }
+    //operacionar esses dados
+    const promise = sut.auth(fakerParams())
+    //verificar resultado esperado
+    await expect(promise).rejects.toThrow(new UnexpectedError())
+  })
+
+  it('Should throw UnexpectedError if ApiPostClient returns 500', async () => {
+    //produz os dados do teste
+    const { sut, api } = makeSut()
+    api.response = {
+      statusCode: ApiStatusCode.serverError
     }
     //operacionar esses dados
     const promise = sut.auth(fakerParams())

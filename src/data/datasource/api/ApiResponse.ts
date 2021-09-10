@@ -6,7 +6,7 @@ export enum ApiStatusCode {
   serverError = 500
 }
 
-export type ApiResponse = {
+export type ApiResponse<ResponseType> = {
   statusCode: ApiStatusCode,
-  body?: any
+  body?: ResponseType
 }
