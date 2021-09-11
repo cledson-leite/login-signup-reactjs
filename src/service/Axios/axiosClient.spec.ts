@@ -3,25 +3,26 @@ import faker from 'faker'
 
 import { fakePostRequest } from './mocks/fakePostRequest';
 import { AxiosClient } from '@service/Axios/AxiosClient'
+import { mockAxios } from './mocks/mockAxios';
 
 jest.mock('axios')
-const mockedAxios = axios as jest.Mocked<typeof axios>
 
-const result = {
-  status: faker.datatype.number(),
-  data: faker.random.objectElement()
+type SutTypes = {
+  sut: AxiosClient,
+  mockedAxios: jest.Mocked<typeof axios>
 }
-mockedAxios.post.mockResolvedValue(result)
 
-const makeSut = (): AxiosClient => {
-  return new AxiosClient()
+const makeSut = (): SutTypes => {
+  const sut = new AxiosClient()
+  const mockedAxios = mockAxios()
+  return { sut, mockedAxios}
 }
 
 describe('Axios Client', () => {
   it('Should call axios with the correct URL verb and body', async () => {
     //produz os dados do teste
     const request = fakePostRequest()
-    const sut = makeSut()
+    const {sut, mockedAxios} = makeSut()
     //operacionar esses dados
     await sut.post(request)
     //verificar resultado esperado
@@ -31,9 +32,10 @@ describe('Axios Client', () => {
   it('Should return the correct statusCode and body', async () => {
     //produz os dados do teste
     const request = fakePostRequest()
-    const sut = makeSut()
+    const { sut, mockedAxios } = makeSut()
     //operacionar esses dados
     const responde = await sut.post(request)
+    const result = await mockedAxios.post.mock.results[0].value
     //verificar resultado esperado
     expect(responde).toEqual({
       statusCode: result.status,
