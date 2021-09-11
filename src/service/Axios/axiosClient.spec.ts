@@ -18,6 +18,6 @@ describe('Axios Client', () => {
     //operacionar esses dados
     sut.post({ url: url})
     //verificar resultado esperado
-    expect(mockedAxios).toHaveBeenCalledWith(url)
+    expect(mockedAxios.post).toHaveBeenCalledWith(url)
   })
 })
