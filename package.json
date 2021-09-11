@@ -10,6 +10,7 @@
     "test:ci": "yarn test -- --coverage"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/faker": "^5.5.8",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.7.9",
@@ -29,6 +30,7 @@
     "webpack-dev-server": "3"
   },
   "dependencies": {
+    "axios": "^0.21.4",
     "react": "16",
     "react-dom": "16"
   }
