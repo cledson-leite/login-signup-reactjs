@@ -7,6 +7,7 @@ import Logo from '@components/logo/logo'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 import Header from '@layout/header/header'
+import Footer from '@layout/footer/footer'
 
 const Login = () => {
   return (
@@ -31,7 +32,7 @@ const Login = () => {
           <span className={Styles.error}>Error</span>
         </div>
       </form>
-      <footer className={Styles.footer}/>
+      <Footer />
     </div>
   )
 }
