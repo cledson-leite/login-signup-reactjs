@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import Styles from './header-styles.scss'
 
 
@@ -13,4 +13,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default memo(Header)
