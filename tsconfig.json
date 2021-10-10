@@ -38,6 +38,7 @@
       "@pages/*": ["./presentation/pages/*"],
       "@components/*": ["./presentation/components/*"],
       "@styles/*": ["./presentation/styles/*"],
+      "@layout/*": ["./presentation/layout/*"],
       "@factories/*": ["./main/factories/*"],
       "@main/*": ["./main/*"],
     },                                      /* Specify a set of entries that re-map imports to additional lookup locations. */

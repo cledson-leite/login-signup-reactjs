@@ -6,14 +6,12 @@ import Logo from '@components/logo/logo'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
+import Header from '@layout/header/header'
 
 const Login = () => {
   return (
     <div className={Styles.login} >
-      <header className={Styles.header}>
-        <Logo />
-        <h2>Estudo de Caso Login e SignUp com TDD</h2>
-      </header>
+      <Header />
       <form action="" className={Styles.form}>
         <h2>Login</h2>
         <div className={Styles.inputWrap}>

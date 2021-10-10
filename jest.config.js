@@ -21,6 +21,7 @@ module.exports = {
         "@pages/(.*)": "<rootDir>/src/presentation/pages/$1",
         "@components/(.*)": "<rootDir>/src/presentation/components/$1",
         "@styles/(.*)": "<rootDir>/src/presentation/styles/$1",
+        "@layout/(.*)": "<rootDir>/src/presentation/layout/$1",
         "@factories/(.*)": "<rootDir>/src/main/factories/$1",
         "@main/(.*)": "<rootDir>/src/main/$1",
 }
