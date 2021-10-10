@@ -20,6 +20,7 @@ module.exports = {
         "@service/(.*)": "<rootDir>/src/service/$1",
         "@pages/(.*)": "<rootDir>/src/presentation/pages/$1",
         "@components/(.*)": "<rootDir>/src/presentation/components/$1",
+        "@styles/(.*)": "<rootDir>/src/presentation/styles/$1",
         "@factories/(.*)": "<rootDir>/src/main/factories/$1",
         "@main/(.*)": "<rootDir>/src/main/$1",
 }

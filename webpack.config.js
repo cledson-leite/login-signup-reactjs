@@ -25,6 +25,7 @@ module.exports = {
       '@service': path.join(__dirname, 'src/service'),
       '@pages': path.join(__dirname, 'src/presentation/pages'),
       '@components': path.join(__dirname, 'src/presentation/components'),
+      '@styles': path.join(__dirname, 'src/presentation/styles'),
       '@factories': path.join(__dirname, 'src/main/factories'),
       '@main': path.join(__dirname, 'src/main'),
     }
@@ -61,7 +62,7 @@ module.exports = {
             }
           },
           {
-            loader: 'scss-loader'
+            loader: 'sass-loader'
           },
           
           ]

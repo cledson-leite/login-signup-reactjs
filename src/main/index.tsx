@@ -1,4 +1,9 @@
 import React from 'react';
-import ReactDom from 'react-dom';
+import ReactDom from 'react-dom'
 
-ReactDom.render(<h1>Teste de BoilerPlace</h1>, document.querySelector('#main'))
+import Login from '@pages/login/login';
+
+ReactDom.render(
+  <Login />,
+  document.querySelector('#main')
+)
