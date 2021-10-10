@@ -11,6 +11,7 @@ module.exports = {
       ".+\\.(ts|tsx)$":"ts-jest"
 },
       moduleNameMapper: {
+        "@/(.*)": "<rootDir>/src/$1",
         "@entities/(.*)": "<rootDir>/src/domain/entities/$1",
         "@usecases/(.*)": "<rootDir>/src/domain/usecases/$1",
         "@repositories/(.*)": "<rootDir>/src/data/repositories/$1",
