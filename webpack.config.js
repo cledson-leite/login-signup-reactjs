@@ -25,6 +25,7 @@ module.exports = {
       '@service': path.join(__dirname, 'src/service'),
       '@pages': path.join(__dirname, 'src/presentation/pages'),
       '@components': path.join(__dirname, 'src/presentation/components'),
+      '@providers': path.join(__dirname, 'src/presentation/providers'),
       '@styles': path.join(__dirname, 'src/presentation/styles'),
       '@layout': path.join(__dirname, 'src/presentation/layout'),
       '@factories': path.join(__dirname, 'src/main/factories'),

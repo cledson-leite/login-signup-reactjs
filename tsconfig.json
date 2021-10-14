@@ -37,6 +37,7 @@
       "@service/*": ["./service/*"],
       "@pages/*": ["./presentation/pages/*"],
       "@components/*": ["./presentation/components/*"],
+      "@providers/*": ["./presentation/providers/*"],
       "@styles/*": ["./presentation/styles/*"],
       "@layout/*": ["./presentation/layout/*"],
       "@factories/*": ["./main/factories/*"],
