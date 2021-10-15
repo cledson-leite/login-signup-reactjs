@@ -6,7 +6,7 @@ import Context from '@providers/form'
 import Spinner from '@components/spinner/spinner'
 
 const Loading: React.FC = () => {
-  const { isLoading, errorMessage } = useContext(Context)
+  const { isLoading, errorMessage } = useContext(Context).loading
   return (
     <div className={Styles.errorWrap} data-testid ='errorWrap'>
       {isLoading && <Spinner className={Styles.spinner} />}

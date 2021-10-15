@@ -12,19 +12,23 @@ import Footer from '@layout/footer/footer'
 
 
 const Login: React.FC = () => {
-  const [state] = useState({
+  const [loading] = useState({
     isLoading: false,
     errorMessage: "",
+  })
+  const [inputError] = useState({
+    email: "Campo Obrigatório",
+    password: "Campo Obrigatório",
   })
   return (
     <div className={Styles.login} >
       <Header />
-      <Context.Provider value={state}>
+      <Context.Provider value={{loading, inputError}}>
         <form action="" className={Styles.form}>
           <h2>Login</h2>
 
           <Input type="email" name="email" placeholder='Digite seu e-mail ...'/>
-          <Input type="password " name="password " placeholder='Digite sua senha ...' />
+          <Input type="password" name="password" placeholder='Digite sua senha ...' />
           
           <button data-testid='submit' disabled type="submit">Entrar</button>
           <span className={Styles.link}>Criar conta</span>
