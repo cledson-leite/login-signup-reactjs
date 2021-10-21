@@ -1,20 +1,35 @@
 import React from 'react'
-import { render, RenderResult } from '@testing-library/react'
+import { render, RenderResult, cleanup, fireEvent } from '@testing-library/react'
 import Login from './login'
+import { Validation } from 'presentation/validation/IValidation'
 
 type SutTypes = {
-  sut: RenderResult
+  sut: RenderResult,
+  validationSpy: Validation
+}
+
+class ValidationSpy implements Validation {
+  errorMessage!: string
+  input!: object
+  
+  validate(input: object): string {
+    this.input = input
+    return this.errorMessage
+  }
 }
 
 const makeSut = (): SutTypes => {
-  const sut = render(<Login />)
+  const validationSpy = new ValidationSpy()
+  const sut = render(<Login validation={validationSpy} />)
   return {
-    sut
+    sut,
+    validationSpy
   }
 
 }
 
 describe('Login', () => {
+  afterEach(cleanup)
   it('Should start with inicial state', () => {
     //produz os dados do teste
     const { sut } = makeSut()
@@ -33,5 +48,19 @@ describe('Login', () => {
     expect(iconEmail).toBe('times')
     expect(passwordStatus?.title).toBe('Campo Obrigatório')
     expect(iconPassword).toBe('times')
+  })
+  
+  it('Should call Validation with correct value', () => {
+    //produz os dados do teste
+    const { sut, validationSpy } = makeSut()
+    const emailInput = sut.getByTestId('email')
+
+    //operacionar esses dados
+    fireEvent.input(emailInput, {target: { value: 'any@email.com'}})
+    
+    //verificar resultado esperado
+    expect(validationSpy.input).toEqual({
+      email: 'any@email.com'
+    })
   })
 })
