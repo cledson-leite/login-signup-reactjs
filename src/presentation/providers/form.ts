@@ -10,9 +10,15 @@ type InputError = {
   password: string
 }
 
+type State = {
+  email: string,
+}
+
 type StateProps = {
   loading: Loading;
-  inputError: InputError 
+  inputError: InputError;
+  state: State,
+  setState: React.Dispatch<React.SetStateAction<State>>
 }
 
 export default createContext<StateProps>({} as StateProps);

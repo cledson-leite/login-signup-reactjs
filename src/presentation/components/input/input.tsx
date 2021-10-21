@@ -9,13 +9,25 @@ import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 const Input: React.FC<Props> = (props: Props) => {
-  const { inputError } = useContext(Context)
-  const enabledInput = (e: React.FocusEvent<HTMLInputElement>) => {
+  const { inputError, state, setState } = useContext(Context)
+  const enabledInput = (e: React.FocusEvent<HTMLInputElement>): void => {
     e.target.readOnly = false;
+  }
+  const handleChange = (e: React.FocusEvent<HTMLInputElement>): void => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value
+    })
   }
   return (
     <div className={Styles.inputWrap}>
-      <input {...props} readOnly onFocus={ enabledInput }/>
+      <input
+        {...props}
+        data-testid={props.name}
+        readOnly
+        onChange={handleChange}
+        onFocus={enabledInput}
+      />
       <span
         data-testid={`${props.name}-status`}
         title={inputError[props.name!]}
