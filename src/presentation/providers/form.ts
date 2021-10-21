@@ -12,6 +12,7 @@ type InputError = {
 
 type State = {
   email: string,
+  password: string,
 }
 
 type StateProps = {
