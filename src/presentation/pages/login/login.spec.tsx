@@ -50,7 +50,7 @@ describe('Login', () => {
     expect(iconPassword).toBe('times')
   })
   
-  it('Should call Validation with correct value', () => {
+  it('Should call Validation with correct email', () => {
     //produz os dados do teste
     const { sut, validationSpy } = makeSut()
     const emailInput = sut.getByTestId('email')
@@ -61,6 +61,20 @@ describe('Login', () => {
     //verificar resultado esperado
     expect(validationSpy.input).toEqual({
       email: 'any@email.com'
+    })
+  })
+  
+  it('Should call Validation with correct password', () => {
+    //produz os dados do teste
+    const { sut, validationSpy } = makeSut()
+    const passwordInput = sut.getByTestId('password')
+
+    //operacionar esses dados
+    fireEvent.input(passwordInput, {target: { value: 'any_password'}})
+    
+    //verificar resultado esperado
+    expect(validationSpy.input).toEqual({
+      password: 'any_password'
     })
   })
 })
