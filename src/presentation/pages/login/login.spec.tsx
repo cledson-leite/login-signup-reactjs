@@ -1,17 +1,29 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, RenderResult } from '@testing-library/react'
 import Login from './login'
+
+type SutTypes = {
+  sut: RenderResult
+}
+
+const makeSut = (): SutTypes => {
+  const sut = render(<Login />)
+  return {
+    sut
+  }
+
+}
 
 describe('Login', () => {
   it('Should start with inicial state', () => {
     //produz os dados do teste
-    const { getByTestId, queryByTestId } = render(<Login />)
+    const { sut } = makeSut()
     //operacionar esses dados
-    const errorWrap = getByTestId('errorWrap')
-    const submitButton = getByTestId('submit') as HTMLButtonElement
-    const emailStatus = getByTestId('email-status')
+    const errorWrap = sut.getByTestId('errorWrap')
+    const submitButton = sut.getByTestId('submit') as HTMLButtonElement
+    const emailStatus = sut.getByTestId('email-status')
     const iconEmail = emailStatus.firstElementChild?.getAttribute('data-icon')
-    const passwordStatus = getByTestId('password-status')
+    const passwordStatus = sut.getByTestId('password-status')
     const iconPassword = passwordStatus.firstElementChild?.getAttribute('data-icon')
     
     //verificar resultado esperado
