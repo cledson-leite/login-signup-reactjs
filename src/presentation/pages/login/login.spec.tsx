@@ -5,15 +5,17 @@ import { Validation } from 'presentation/validation/IValidation'
 
 type SutTypes = {
   sut: RenderResult,
-  validationSpy: Validation
+  validationSpy: ValidationSpy
 }
 
 class ValidationSpy implements Validation {
   errorMessage!: string
-  input!: object
+  fieldName!: string
+  fieldValue!: string
   
-  validate(input: object): string {
-    this.input = input
+  validate(name: string, value:string): string {
+    this.fieldName = name
+    this.fieldValue = value
     return this.errorMessage
   }
 }
@@ -59,9 +61,8 @@ describe('Login', () => {
     fireEvent.input(emailInput, {target: { value: 'any@email.com'}})
     
     //verificar resultado esperado
-    expect(validationSpy.input).toEqual({
-      email: 'any@email.com'
-    })
+    expect(validationSpy.fieldName).toBe('email')
+    expect(validationSpy.fieldValue).toBe('any@email.com')
   })
   
   it('Should call Validation with correct password', () => {
@@ -73,8 +74,7 @@ describe('Login', () => {
     fireEvent.input(passwordInput, {target: { value: 'any_password'}})
     
     //verificar resultado esperado
-    expect(validationSpy.input).toEqual({
-      password: 'any_password'
-    })
+    expect(validationSpy.fieldName).toBe('password')
+    expect(validationSpy.fieldValue).toBe('any_password')
   })
 })

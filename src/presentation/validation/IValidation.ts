@@ -1,6 +1,3 @@
 export interface Validation {
-  errorMessage: string
-  input: object
-  
-  validate ( input: object): string
+  validate ( name: string, value: string): string
 }
