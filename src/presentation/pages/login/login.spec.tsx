@@ -87,4 +87,20 @@ describe('Login', () => {
     expect(emailStatus?.title).toBe('OK!')
     expect(iconEmail).toBe('check')
   })
+
+  it('Should show valid password state if Validation succeeds', () => {
+    //produz os dados do teste
+    const { sut, validationStub } = makeSut()
+    validationStub.errorMessage = ''
+    const passwordInput = sut.getByTestId('password')
+
+    //operacionar esses dados
+    fireEvent.input(passwordInput, { target: { value: faker.internet.password() } })
+    const passwordStatus = sut.getByTestId('password-status')
+    const iconPassword = passwordStatus.firstElementChild?.getAttribute('data-icon')
+
+    //verificar resultado esperado
+    expect(passwordStatus?.title).toBe('OK!')
+    expect(iconPassword).toBe('check')
+  })
 })
