@@ -5,17 +5,19 @@ import { ValidationStub } from '../../validation/mockValidation'
 import faker from 'faker'
 
 type SutTypes = {
-  sut: RenderResult,
-  validationStub: ValidationStub
+  sut: RenderResult
 }
 
-const makeSut = (): SutTypes => {
+type SutParams = {
+  validationError: string
+}
+
+const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
-  validationStub.errorMessage = faker.random.words()
+  validationStub.errorMessage = params?.validationError ? params?.validationError : ''
   const sut = render(<Login validation={validationStub} />)
   return {
-    sut,
-    validationStub
+    sut
   }
 
 }
@@ -24,7 +26,8 @@ describe('Login', () => {
   afterEach(cleanup)
   it('Should start with inicial state', () => {
     //produz os dados do teste
-    const { sut, validationStub } = makeSut()
+    const validationError = faker.random.words()
+    const { sut } = makeSut({validationError})
     //operacionar esses dados
     const errorWrap = sut.getByTestId('errorWrap')
     const submitButton = sut.getByTestId('submit') as HTMLButtonElement
@@ -36,15 +39,16 @@ describe('Login', () => {
     //verificar resultado esperado
     expect(errorWrap.childElementCount).toBe(0)
     expect(submitButton.disabled).toBe(true)
-    expect(emailStatus?.title).toBe(validationStub.errorMessage)
+    expect(emailStatus?.title).toBe(validationError)
     expect(iconEmail).toBe('times')
-    expect(passwordStatus?.title).toBe(validationStub.errorMessage)
+    expect(passwordStatus?.title).toBe(validationError)
     expect(iconPassword).toBe('times')
   })
 
   it('Should show email error if validation fails', () => {
     //produz os dados do teste
-    const { sut, validationStub } = makeSut()
+    const validationError = faker.random.words()
+    const { sut } = makeSut({ validationError })
     const emailInput = sut.getByTestId('email')
 
     //operacionar esses dados
@@ -53,13 +57,14 @@ describe('Login', () => {
     const iconEmail = emailStatus.firstElementChild?.getAttribute('data-icon')
 
     //verificar resultado esperado
-    expect(emailStatus?.title).toBe(validationStub.errorMessage)
+    expect(emailStatus?.title).toBe(validationError)
     expect(iconEmail).toBe('times')
   })
   
   it('Should show password error if validation fails', () => {
     //produz os dados do teste
-    const { sut, validationStub } = makeSut()
+    const validationError = faker.random.words()
+    const { sut } = makeSut({ validationError })
     const passwordInput = sut.getByTestId('password')
 
     //operacionar esses dados
@@ -68,14 +73,13 @@ describe('Login', () => {
     const iconPassword = passwordStatus.firstElementChild?.getAttribute('data-icon')
 
     //verificar resultado esperado
-    expect(passwordStatus?.title).toBe(validationStub.errorMessage)
+    expect(passwordStatus?.title).toBe(validationError)
     expect(iconPassword).toBe('times')
   })
 
   it('Should show valid email state if Validation succeeds', () => {
     //produz os dados do teste
-    const { sut, validationStub } = makeSut()
-    validationStub.errorMessage = ''
+    const { sut } = makeSut()
     const emailInput = sut.getByTestId('email')
 
     //operacionar esses dados
@@ -90,8 +94,7 @@ describe('Login', () => {
 
   it('Should show valid password state if Validation succeeds', () => {
     //produz os dados do teste
-    const { sut, validationStub } = makeSut()
-    validationStub.errorMessage = ''
+    const { sut } = makeSut()
     const passwordInput = sut.getByTestId('password')
 
     //operacionar esses dados
@@ -106,8 +109,7 @@ describe('Login', () => {
 
   it('Should enable submit button if form is valid', () => {
     //produz os dados do teste
-    const { sut, validationStub } = makeSut()
-    validationStub.errorMessage = ''
+    const { sut } = makeSut()
     const emailInput = sut.getByTestId('email')
     const passwordInput = sut.getByTestId('password')
 
