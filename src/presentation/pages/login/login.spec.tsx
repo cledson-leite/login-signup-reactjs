@@ -121,4 +121,21 @@ describe('Login', () => {
     //verificar resultado esperado
     expect(submitButton.disabled).toBe(false)
   })
+
+  it('Should show spinner on submit', () => {
+    //produz os dados do teste
+    const { sut } = makeSut()
+    const emailInput = sut.getByTestId('email')
+    const passwordInput = sut.getByTestId('password')
+
+    //operacionar esses dados
+    fireEvent.input(emailInput, { target: { value: faker.internet.email() } })
+    fireEvent.input(passwordInput, { target: { value: faker.internet.password() } })
+    const submitButton = sut.getByTestId('submit')
+    fireEvent.click(submitButton)
+    const spinner = sut.getByTestId('spinner')
+
+    //verificar resultado esperado
+    expect(spinner).toBeTruthy()
+  })
 })
