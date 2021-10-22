@@ -1,11 +1,25 @@
 import React from 'react'
+import faker from 'faker'
 import { render, RenderResult, cleanup, fireEvent } from '@testing-library/react'
+
 import Login from './login'
 import { ValidationStub } from '../../validation/mockValidation'
-import faker from 'faker'
+import { Authentication, AuthenticationParams } from '@usecases/Authentication'
+import { Account } from '@entities/Account'
+import { fakeAccount } from '@repositories/mocks/fakeAccount'
+
+class AuthenticationSpy implements Authentication {
+  account = fakeAccount()
+  params!: AuthenticationParams
+  async auth(params: AuthenticationParams): Promise<Account> {
+    this.params = params
+    return Promise.resolve(this.account)
+  }
+}
 
 type SutTypes = {
   sut: RenderResult
+  authenticationSpy: AuthenticationSpy
 }
 
 type SutParams = {
@@ -14,10 +28,16 @@ type SutParams = {
 
 const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
+  const authenticationSpy = new AuthenticationSpy()
   validationStub.errorMessage = params?.validationError ? params?.validationError : ''
-  const sut = render(<Login validation={validationStub} />)
+  const sut = render(
+    <Login
+      validation={validationStub}
+      authentication={authenticationSpy}
+    />)
   return {
-    sut
+    sut,
+    authenticationSpy
   }
 
 }
@@ -137,5 +157,26 @@ describe('Login', () => {
 
     //verificar resultado esperado
     expect(spinner).toBeTruthy()
+  })
+
+  it('Should call Authentication with correct values', () => {
+    //produz os dados do teste
+    const { sut, authenticationSpy } = makeSut()
+    const emailInput = sut.getByTestId('email')
+    const passwordInput = sut.getByTestId('password')
+    const email = faker.internet.email()
+    const password = faker.internet.password()
+
+    //operacionar esses dados
+    fireEvent.input(emailInput, { target: { value:  email} })
+    fireEvent.input(passwordInput, { target: { value:  password} })
+    const submitButton = sut.getByTestId('submit')
+    fireEvent.click(submitButton)
+
+    //verificar resultado esperado
+    expect(authenticationSpy.params).toEqual({
+      email,
+      password
+    })
   })
 })
