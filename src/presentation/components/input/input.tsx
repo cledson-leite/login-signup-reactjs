@@ -30,12 +30,24 @@ const Input: React.FC<Props> = (props: Props) => {
       />
       <span
         data-testid={`${props.name}-status`}
-        title={inputError[props.name!]}
-        className={Styles.statusRed}
+        title={
+          inputError[props.name!].trim()
+            ? inputError[props.name!]
+            : "OK!"
+        }
+        className={
+          inputError[props.name!].trim()
+            ? Styles.statusRed
+            : Styles.statusGreen
+        }
       >
-        <FontAwesomeIcon icon={faTimes} />
+        {
+          inputError[props.name!].trim()
+            ? <FontAwesomeIcon icon={faTimes} />
+            : <FontAwesomeIcon icon={faCheck} />
+        }
+        
       </span>
-      {/* <span className={Styles.statusRed}><FontAwesomeIcon icon={faCheck} /></span> */}
     </div>
   )
 }
