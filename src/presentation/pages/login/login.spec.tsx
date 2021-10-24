@@ -1,10 +1,11 @@
 import React from 'react'
 import faker from 'faker'
-import { render, RenderResult, cleanup, fireEvent } from '@testing-library/react'
+import { render, RenderResult, cleanup, fireEvent, waitFor } from '@testing-library/react'
 
 import Login from './login'
 import { ValidationStub } from '../../validation/mockValidation'
 import { AuthenticationSpy } from './mocks/AuthenticationSpy'
+import { InvalidCredentialsError } from '@repositories/errors/InvalidCredentialsError'
 
 
 type SutTypes = {
@@ -186,5 +187,24 @@ describe('Login', () => {
 
     //verificar resultado esperado
     expect(authenticationSpy.callCount).toBe(0)
+  })
+
+  it('Should present error if Authentication fails', async () => {
+
+    //produz os dados do teste
+    const { sut, authenticationSpy } = makeSut()
+    const error = new InvalidCredentialsError()
+    jest.spyOn(authenticationSpy, 'auth').mockRejectedValueOnce(error)
+
+    //operacionar esses dados
+    simulateValidSubmit(sut)
+    const errorWrap = sut.getByTestId('errorWrap')
+    await waitFor(() => errorWrap)
+    const mainError = sut.getByTestId('error')
+    const spinner = sut.queryByTestId('spinner')
+
+    //verificar resultado esperado
+    expect(mainError.textContent).toBe(error.message)
+    expect(spinner).toBeNull()
   })
 })
