@@ -174,4 +174,17 @@ describe('Login', () => {
     //verificar resultado esperado
     expect(authenticationSpy.callCount).toBe(1)
   })
+
+  it('Should not call Authentication if form is invalid', () => {
+    //produz os dados do teste
+    const validationError = faker.random.words()
+    const { sut, authenticationSpy } = makeSut({ validationError })
+
+    //operacionar esses dados
+    populateEmail(sut)
+    fireEvent.submit(sut.getByTestId("form"))
+
+    //verificar resultado esperado
+    expect(authenticationSpy.callCount).toBe(0)
+  })
 })
