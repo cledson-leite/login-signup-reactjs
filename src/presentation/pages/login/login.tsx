@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import Styles from './login-styles.scss'
 
 import Logo from '@components/logo/logo'
@@ -11,7 +12,6 @@ import Header from '@layout/header/header'
 import Footer from '@layout/footer/footer'
 import { Validation } from 'presentation/validation/IValidation'
 import { Authentication } from '@usecases/Authentication'
-import { Link } from 'react-router-dom'
 
 type Props = {
   validation: Validation,
@@ -19,7 +19,8 @@ type Props = {
 }
 
 
-const Login: React.FC<Props> = ({ validation, authentication}: Props) => {
+const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
+  const history = useHistory()
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -55,6 +56,7 @@ const Login: React.FC<Props> = ({ validation, authentication}: Props) => {
         password: state.password
       })
       localStorage.setItem('accessToken', account.accessToken)
+      history.replace('/')
     } catch (error: any) {
       setLoading({
         isLoading: false,
