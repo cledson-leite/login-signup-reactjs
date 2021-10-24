@@ -11,6 +11,7 @@ import Header from '@layout/header/header'
 import Footer from '@layout/footer/footer'
 import { Validation } from 'presentation/validation/IValidation'
 import { Authentication } from '@usecases/Authentication'
+import { Link } from 'react-router-dom'
 
 type Props = {
   validation: Validation,
@@ -82,7 +83,11 @@ const Login: React.FC<Props> = ({ validation, authentication}: Props) => {
           >
             Entrar
           </button>
-          <span className={Styles.link}>Criar conta</span>
+          <Link
+            data-testid="signUp"
+            to="/signUp"
+            className={Styles.link}
+          >Criar conta</Link>
           <Loading />
         </form>
       </Context.Provider>
