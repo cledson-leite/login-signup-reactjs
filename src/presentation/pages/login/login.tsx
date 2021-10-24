@@ -49,10 +49,11 @@ const Login: React.FC<Props> = ({ validation, authentication}: Props) => {
         ...loading,
         isLoading: true,
       })
-      await authentication.auth({
+      const account = await authentication.auth({
         email: state.email,
         password: state.password
       })
+      localStorage.setItem('accessToken', account.accessToken)
     } catch (error: any) {
       setLoading({
         isLoading: false,
