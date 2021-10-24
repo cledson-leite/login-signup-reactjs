@@ -162,4 +162,16 @@ describe('Login', () => {
       password
     })
   })
+
+  it('Should call Authentication only once', () => {
+    //produz os dados do teste
+    const { sut, authenticationSpy } = makeSut()
+
+    //operacionar esses dados
+    simulateValidSubmit(sut)
+    simulateValidSubmit(sut)
+
+    //verificar resultado esperado
+    expect(authenticationSpy.callCount).toBe(1)
+  })
 })
