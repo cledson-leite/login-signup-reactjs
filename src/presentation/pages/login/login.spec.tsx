@@ -1,6 +1,13 @@
 import React from 'react'
 import faker from 'faker'
-import { render, RenderResult, cleanup, fireEvent, waitFor } from '@testing-library/react'
+import 'jest-localstorage-mock'
+import {
+  render,
+  RenderResult,
+  cleanup,
+  fireEvent,
+  waitFor
+} from '@testing-library/react'
 
 import Login from './login'
 import { ValidationStub } from '../../validation/mockValidation'
@@ -69,6 +76,7 @@ const makeSut = (params?: SutParams): SutTypes => {
 }
 
 describe('Login', () => {
+  beforeEach(() => localStorage.clear())
   afterEach(cleanup)
   it('Should start with inicial state', () => {
     //produz os dados do teste
@@ -206,5 +214,21 @@ describe('Login', () => {
     //verificar resultado esperado
     expect(mainError.textContent).toBe(error.message)
     expect(spinner).toBeNull()
+  })
+
+  it('Should present error if Authentication fails', async () => {
+
+    //produz os dados do teste
+    const { sut, authenticationSpy } = makeSut()
+
+    //operacionar esses dados
+    simulateValidSubmit(sut)
+    await waitFor(() => sut.getByTestId('form'))
+
+    //verificar resultado esperado
+    expect(localStorage.setItem).toHaveBeenCalledWith(
+      'accessToken',
+      authenticationSpy.account.accessToken
+    )
   })
 })
