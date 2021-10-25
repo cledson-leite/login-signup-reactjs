@@ -10,7 +10,7 @@ import Context from '@providers/form'
 
 import Header from '@layout/header/header'
 import Footer from '@layout/footer/footer'
-import { Validation } from 'presentation/validation/IValidation'
+import { Validation } from 'presentation/repositories/validation/IValidation'
 import { Authentication } from '@usecases/Authentication'
 
 type Props = {
