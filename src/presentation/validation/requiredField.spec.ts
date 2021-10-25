@@ -1,3 +1,5 @@
+import faker from 'faker'
+
 import { RequiredFieldError } from './errors/RequiredFieldError'
 import { RequiredField } from './RequiredField'
 
@@ -8,7 +10,17 @@ describe('Required Fields', () => {
     //operacionar esses dados
       const error = sut.validate('')
     //verificar resultado esperado
-      expect(error).toEqual(new RequiredFieldError())
+      expect(error).toBe(new RequiredFieldError().message)
+    
+  })
+
+  it('Should return falsy if field is not empty', () => {
+    //produz os dados do teste
+      const sut = new RequiredField('email')
+    //operacionar esses dados
+      const error = sut.validate(faker.random.word())
+    //verificar resultado esperado
+      expect(error).toBeFalsy()
     
   })
 })
