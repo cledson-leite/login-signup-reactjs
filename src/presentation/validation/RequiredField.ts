@@ -1,5 +1,5 @@
 import { RequiredFieldError } from './errors/RequiredFieldError';
-import { FieldValidation } from './repositories/FieldValitation';
+import { FieldValidation } from './repositories/FieldValidation';
 
 export class RequiredField implements FieldValidation {
   constructor(readonly field: string){};

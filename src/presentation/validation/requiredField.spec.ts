@@ -3,10 +3,12 @@ import faker from 'faker'
 import { RequiredFieldError } from './errors/RequiredFieldError'
 import { RequiredField } from './RequiredField'
 
+const makeSut = (): RequiredField => new RequiredField(faker.database.column())
+
 describe('Required Fields', () => {
   it('Should return error if field is empty', () => {
     //produz os dados do teste
-      const sut = new RequiredField('email')
+      const sut = makeSut()
     //operacionar esses dados
       const error = sut.validate('')
     //verificar resultado esperado
