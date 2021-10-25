@@ -12,7 +12,7 @@ import {
 } from '@testing-library/react'
 
 import Login from './login'
-import { ValidationStub } from '../../validation/mockValidation'
+import { ValidationStub } from '../../repositories/validation/mockValidation'
 import { AuthenticationSpy } from './mocks/AuthenticationSpy'
 import { InvalidCredentialsError } from '@repositories/errors/InvalidCredentialsError'
 
