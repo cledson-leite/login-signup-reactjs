@@ -1,3 +1,4 @@
+import { EmailValidation } from '../../validators/email/EmailValidation'
 import { FieldValidation } from '../../validators/repositories/FieldValidation'
 import { RequiredField } from '../../validators/requiredFields/RequiredField'
 
@@ -13,6 +14,11 @@ export class ValidationBuilder {
 
   required(): ValidationBuilder {
     this.validations.push(new RequiredField(this.fieldName))
+    return this
+  }
+
+  email(): ValidationBuilder {
+    this.validations.push(new EmailValidation(this.fieldName))
     return this
   }
 
