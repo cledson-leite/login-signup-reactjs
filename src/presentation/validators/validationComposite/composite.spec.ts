@@ -39,7 +39,7 @@ describe('Validation Composite', () => {
   it('Should return false if no validation fails', () => {
     //produz os dados do teste
     const fieldName = faker.database.column()
-    const { sut, fieldValidationsSpy } = makeSut(fieldName)
+    const { sut } = makeSut(fieldName)
     //operacionar esses dados
     const error = sut.validate(fieldName, faker.random.word())
     //verificar resultado esperado
