@@ -12,7 +12,7 @@ describe('Email validation', () => {
     //operacionar esses dados
     const error = sut.validate(faker.random.word())    
     //verificar resultado esperado
-    expect(error).toBe(new InvalidFieldError().message)
+    expect(error?.message).toBe(new InvalidFieldError().message)
   })
   
   it('Should return falsy if email is valid', () => {

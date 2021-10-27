@@ -12,7 +12,7 @@ describe('Required Fields', () => {
     //operacionar esses dados
       const error = sut.validate('')
     //verificar resultado esperado
-      expect(error).toBe(new RequiredFieldError().message)
+      expect(error?.message).toBe(new RequiredFieldError().message)
     
   })
 

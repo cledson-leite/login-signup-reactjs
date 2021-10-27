@@ -14,7 +14,7 @@ describe('Min Length', () => {
     //operacionar esses dados
     const error = sut.validate(faker.random.alphaNumeric(4))
     //verificar resultado esperado
-    expect(error).toBe(new InvalidFieldError().message)
+    expect(error?.message).toBe(new InvalidFieldError().message)
   })
   
   it('Should return falsy if value is valid', () => {
