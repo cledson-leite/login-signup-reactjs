@@ -34,12 +34,27 @@ describe('Validation builder', () => {
   it('Should return MinLengthValidation', () => {
     //produz os dados do teste
     const fieldName = faker.database.column()
+    const minNumber = faker.datatype.number()
 
     //operacionar esses dados
-    const validations = sut.field(fieldName).min(5).build()
+    const validations = sut.field(fieldName).min(minNumber).build()
     //verificar resultado esperado
     expect(validations).toEqual([
-      new MinLength(fieldName,5)
+      new MinLength(fieldName,minNumber)
+    ])
+  })
+  
+  it('Should return a list f validations', () => {
+    //produz os dados do teste
+    const fieldName = faker.database.column()
+
+    //operacionar esses dados
+    const validations = sut.field(fieldName).required().min(5).email().build()
+    //verificar resultado esperado
+    expect(validations).toEqual([
+      new RequiredField(fieldName),
+      new MinLength(fieldName, 5),
+      new EmailValidation(fieldName)
     ])
   })
 })
