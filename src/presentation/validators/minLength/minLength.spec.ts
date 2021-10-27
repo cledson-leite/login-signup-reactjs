@@ -1,6 +1,6 @@
 import faker from 'faker'
 import { InvalidFieldError } from '../errors/InvalidFieldError'
-import { MinLength } from './MinLenght'
+import { MinLength } from './MinLength'
 
 const makeSut = (length: number = 5): MinLength => {
   return new MinLength(faker.database.column(), length)
