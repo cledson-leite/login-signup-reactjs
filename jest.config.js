@@ -2,6 +2,7 @@ module.exports = {
   roots: ["<rootDir>/src"],
   collectCoverageFrom: [
   "<rootDir>/src/**/*.{ts, tsx}",
+  "!<rootDir>/src/domain/entities/**/*.{ts, tsx}",
     "!**/*.d.ts"
   ],
   moduleFileExtensions: ["js", "jsx", "ts", "tsx", "json", "node"],
