@@ -3,7 +3,7 @@ import faker from 'faker'
 
 import { fakePostRequest } from './mocks/fakePostRequest';
 import { AxiosClient } from '@service/Axios/AxiosClient'
-import { mockAxios } from './mocks/mockAxios';
+import { mockApiResponse, mockAxios } from './mocks/mockAxios';
 
 jest.mock('axios')
 
@@ -41,5 +41,19 @@ describe('Axios Client', () => {
       statusCode: result.status,
       body: result.data
     })
+  })
+  
+  it('Should return the correct statusCode and body on failure', async () => {
+    //produz os dados do teste
+    const request = fakePostRequest()
+    const { sut, mockedAxios } = makeSut()
+    mockedAxios.post.mockRejectedValueOnce({
+      response: mockApiResponse()
+    })
+    //operacionar esses dados
+    const promise = sut.post(request)
+    //verificar resultado esperado
+    expect(promise).toEqual(mockedAxios.post.mock.results[0].value)
+    
   })
 })
