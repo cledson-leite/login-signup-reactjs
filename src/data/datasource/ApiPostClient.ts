@@ -1,9 +1,9 @@
-import { ApiResponse } from './api/ApiResponse';
+import { ApiResponse } from './api/ApiResponse'
 
 export type ApiPostClientParams<BodyType> = {
-  url: string,
+  url: string
   body?: BodyType
 }
 export interface ApiPostClient<BodyType, ResponseType> {
-  post(params: ApiPostClientParams<BodyType>): Promise<ApiResponse<ResponseType>>
+  post: (params: ApiPostClientParams<BodyType>) => Promise<ApiResponse<ResponseType>>
 }

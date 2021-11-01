@@ -5,6 +5,6 @@ import { ValidationBuilder } from '../../../../presentation/builder/validation/V
 export const makeLoginValidation = (): ValidationComposite => {
   return ValidationComposite.build([
     ...ValidationBuilder.field('email').required().email().build(),
-    ...ValidationBuilder.field('password').required().min(5).build(),
+    ...ValidationBuilder.field('password').required().min(5).build()
   ])
 }

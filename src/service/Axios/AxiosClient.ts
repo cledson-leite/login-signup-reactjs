@@ -1,10 +1,10 @@
 import axios, { AxiosResponse } from 'axios'
 
-import { ApiPostClientParams, ApiPostClient } from '@datasource/ApiPostClient';
-import { ApiResponse } from '@datasource/api/ApiResponse';
+import { ApiPostClientParams, ApiPostClient } from '@datasource/ApiPostClient'
+import { ApiResponse } from '@datasource/api/ApiResponse'
 
-export class AxiosClient implements ApiPostClient<any, any>{
-  async post(params: ApiPostClientParams<any>): Promise<ApiResponse<any>>{
+export class AxiosClient implements ApiPostClient<any, any> {
+  async post (params: ApiPostClientParams<any>): Promise<ApiResponse<any>> {
     let axiosResponse: AxiosResponse<any>
     try {
       axiosResponse = await axios.post(params.url, params.body)

@@ -4,31 +4,31 @@ import { FieldValidation } from '../../validators/repositories/FieldValidation'
 import { RequiredField } from '../../validators/requiredFields/RequiredField'
 
 export class ValidationBuilder {
-  private constructor(
+  private constructor (
     private readonly fieldName: string,
-    private readonly validations: FieldValidation[],
+    private readonly validations: FieldValidation[]
   ) { }
 
-  static field(name: string): ValidationBuilder {
+  static field (name: string): ValidationBuilder {
     return new ValidationBuilder(name, [])
   }
 
-  required(): ValidationBuilder {
+  required (): ValidationBuilder {
     this.validations.push(new RequiredField(this.fieldName))
     return this
   }
 
-  email(): ValidationBuilder {
+  email (): ValidationBuilder {
     this.validations.push(new EmailValidation(this.fieldName))
     return this
   }
 
-  min(length: number): ValidationBuilder {
+  min (length: number): ValidationBuilder {
     this.validations.push(new MinLength(this.fieldName, length))
     return this
   }
 
-  build(): FieldValidation[] {
+  build (): FieldValidation[] {
     return this.validations
   }
 }

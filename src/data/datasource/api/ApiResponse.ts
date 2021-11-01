@@ -7,6 +7,6 @@ export enum ApiStatusCode {
 }
 
 export type ApiResponse<ResponseType> = {
-  statusCode: ApiStatusCode,
+  statusCode: ApiStatusCode
   body?: ResponseType
 }

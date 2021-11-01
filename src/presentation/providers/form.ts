@@ -1,25 +1,25 @@
-import { createContext } from 'react';
+import { createContext } from 'react'
 
 type Loading = {
-  isLoading: boolean,
+  isLoading: boolean
   errorMessage: string
 }
 
 type InputError = {
-  email: string,
+  email: string
   password: string
 }
 
 type State = {
-  email: string,
-  password: string,
+  email: string
+  password: string
 }
 
 type StateProps = {
-  loading: Loading;
-  inputError: InputError;
-  state: State,
+  loading: Loading
+  inputError: InputError
+  state: State
   setState: React.Dispatch<React.SetStateAction<State>>
 }
 
-export default createContext<StateProps>({} as StateProps);
+export default createContext<StateProps>({} as StateProps)

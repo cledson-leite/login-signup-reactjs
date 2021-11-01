@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import Styles from './login-styles.scss'
 
-import Logo from '@components/logo/logo'
 import Input from '@components/input/input'
 import Loading from '@components/loading/loading'
 
@@ -14,24 +13,23 @@ import { Validation } from 'presentation/repositories/validation/IValidation'
 import { Authentication } from '@usecases/Authentication'
 
 type Props = {
-  validation: Validation,
+  validation: Validation
   authentication: Authentication
 }
-
 
 const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
   const history = useHistory()
   const [state, setState] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: ''
   })
   const [loading, setLoading] = useState({
     isLoading: false,
-    errorMessage: "",
+    errorMessage: ''
   })
   const [inputError, setInputError] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: ''
   })
 
   useEffect(() => {
@@ -40,7 +38,6 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
       password: validation.validate('password', state.password)
 
     })
-    
   }, [state.email, state.password])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
@@ -49,7 +46,7 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
       if (loading.isLoading || inputError.email || inputError.password) return
       setLoading({
         ...loading,
-        isLoading: true,
+        isLoading: true
       })
       const account = await authentication.auth({
         email: state.email,
@@ -64,11 +61,11 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
       })
     }
   }
-  
+
   return (
     <div className={Styles.login} >
       <Header />
-      <Context.Provider value={{loading, inputError, state, setState}}>
+      <Context.Provider value={{ loading, inputError, state, setState }}>
         <form
           data-testid="form"
           onSubmit={handleSubmit}
@@ -77,7 +74,7 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
 
           <Input type="email" name="email" placeholder='Digite seu e-mail ...'/>
           <Input type="password" name="password" placeholder='Digite sua senha ...' />
-          
+
           <button
             data-testid='submit'
             disabled={!!inputError.email || !!inputError.password }

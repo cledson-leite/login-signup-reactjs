@@ -11,7 +11,7 @@ const Loading: React.FC = () => {
     <div className={Styles.errorWrap} data-testid ='errorWrap'>
       {isLoading && <Spinner className={Styles.spinner} />}
       {errorMessage.trim() && <span data-testid="error" className={Styles.error}>{errorMessage}</span>}
-      
+
     </div>
   )
 }
