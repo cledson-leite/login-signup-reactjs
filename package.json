@@ -8,6 +8,7 @@
     "test:watch": "yarn test -- --watch",
     "test:staged": "yarn test -- --findRelatedTest",
     "test:ci": "yarn test -- --coverage",
+    "test:coveralls": "yarn test:ci && coveralls < coverage/lcov.info",
     "dev": "webpack serve --open --hot"
   },
   "devDependencies": {
@@ -28,6 +29,7 @@
     "babel-jest": "^27.3.1",
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
+    "coveralls": "^3.1.1",
     "css-loader": "^6.5.0",
     "eslint": "^8.1.0",
     "eslint-config-standard-with-typescript": "^21.0.1",
