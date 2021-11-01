@@ -5,13 +5,12 @@ import Styles from './input-styles.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 
-
 type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 const Input: React.FC<Props> = (props: Props) => {
   const { inputError, state, setState } = useContext(Context)
   const enabledInput = (e: React.FocusEvent<HTMLInputElement>): void => {
-    e.target.readOnly = false;
+    e.target.readOnly = false
   }
   const handleChange = (e: React.FocusEvent<HTMLInputElement>): void => {
     setState({
@@ -33,7 +32,7 @@ const Input: React.FC<Props> = (props: Props) => {
         title={
           inputError[props.name!].trim()
             ? inputError[props.name!]
-            : "OK!"
+            : 'OK!'
         }
         className={
           inputError[props.name!].trim()
@@ -46,7 +45,7 @@ const Input: React.FC<Props> = (props: Props) => {
             ? <FontAwesomeIcon icon={faTimes} />
             : <FontAwesomeIcon icon={faCheck} />
         }
-        
+
       </span>
     </div>
   )

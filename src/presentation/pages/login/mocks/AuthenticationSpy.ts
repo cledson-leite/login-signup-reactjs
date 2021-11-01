@@ -6,9 +6,9 @@ export class AuthenticationSpy implements Authentication {
   account = fakeAccount()
   params!: AuthenticationParams
   callCount = 0
-  async auth(params: AuthenticationParams): Promise<Account> {
+  async auth (params: AuthenticationParams): Promise<Account> {
     this.params = params
-    this.callCount ++
+    this.callCount++
     return Promise.resolve(this.account)
   }
 }

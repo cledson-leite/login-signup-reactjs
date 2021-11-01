@@ -1,10 +1,10 @@
-import { Account } from '@entities/Account';
+import { Account } from '@entities/Account'
 
 export type AuthenticationParams = {
-  email: string,
+  email: string
   password: string
 }
 
 export interface Authentication {
-  auth (params: AuthenticationParams):Promise<Account>
+  auth: (params: AuthenticationParams) => Promise<Account>
 }

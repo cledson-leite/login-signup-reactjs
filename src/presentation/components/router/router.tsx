@@ -1,13 +1,13 @@
 import React from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+
+import '@styles/global.scss'
 
 type Props = {
   makeLogin: React.FC
 }
 
-import '@styles/global.scss'
-
-const Router: React.FC<Props> = ({ makeLogin}: Props) => {
+const Router: React.FC<Props> = ({ makeLogin }: Props) => {
   return (
     <BrowserRouter>
       <Switch>
