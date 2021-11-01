@@ -3,4 +3,5 @@ node_modules
 coverage
 public/js
 *.lock
+*-lock.*
 *-error.log
